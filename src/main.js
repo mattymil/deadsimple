@@ -8,6 +8,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import store from './store/store'
 import home from './components/home.vue'
+import signup from './components/signUp.vue'
 // import login from './components/login.vue'
 
 Vue.use(VueRouter)
@@ -15,7 +16,9 @@ Vue.use(Vuex)
 
 const routes = [
   // {path: '/login', component: login},
-  {path: '/', component: home}
+  {path: '/', component: home},
+  {path: '/signup', component: signup}
+
   /* {
     path: '/workspace',
     component: workspace,

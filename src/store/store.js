@@ -6,7 +6,7 @@ import firebase from 'firebase'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  strict: true,
+  strict: false,
   state: {},
   mutations: {},
   actions: {}
