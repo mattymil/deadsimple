@@ -1,12 +1,12 @@
 import firebase from 'firebase'
 
 const config = {
-  apiKey: 'AIzaSyAXlXg03wd6_V4PJ4MwWnf6nTMhN8QnaKo',
-  authDomain: 'vuex-arch-test.firebaseapp.com',
-  databaseURL: 'https://vuex-arch-test.firebaseio.com',
-  projectId: 'vuex-arch-test',
+  apiKey: 'AIzaSyC1EO1jUzu2KozYsT4G4Coylacur3PsrZY',
+  authDomain: 'deadsimplenotes.firebaseapp.com',
+  databaseURL: 'https://deadsimplenotes.firebaseio.com',
+  projectId: 'deadsimplenotes',
   storageBucket: '',
-  messagingSenderId: '424119698588'
+  messagingSenderId: '1006518236550'
 }
 
 firebase.initializeApp(config)
