@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
+import VeeValidate from 'vee-validate'
 import App from './App.vue'
 import store from './store/store'
 import home from './components/home.vue'
@@ -13,6 +14,7 @@ import signup from './components/signUp.vue'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
+Vue.use(VeeValidate)
 
 const routes = [
   // {path: '/login', component: login},

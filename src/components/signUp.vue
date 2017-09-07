@@ -3,40 +3,47 @@
     <div class="container">
       <div class="columns">
         <div class="column is-half">
+          <h1 id="signuptitle" class="is-size-2">Sign up!</h1>
           <div class="field">
             <label class="label">First Name</label>
             <div class="control">
-              <input class="input" type="text" v-model="firstName">
+              <input v-validate="'required'" name="firstName" class="input" type="text" v-model="firstName">
             </div>
+            <p v-show="errors.has('firstName')" class="help is-danger">First Name Required</p>
           </div>
           <div class="field">
             <label class="label">Last Name</label>
             <div class="control">
-              <input class="input" type="text" v-model="lastName">
+              <input v-validate="'required'" name="lastName" class="input" type="text" v-model="lastName">
             </div>
+            <p v-show="errors.has('lastName')" class="help is-danger">Last Name Required</p>
           </div>
           <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" type="email" v-model="email">
+              <input v-validate="'required|email'" data-vv-delay="500" name="email" class="input" type="email" v-model="email">
             </div>
+             <p v-show="errors.has('email')" class="help is-danger">Must be valid email</p>
           </div>
           <div class="field">
             <label class="label">Password</label>
             <div class="control">
-              <input class="input" type="password" v-model="passwordTry">
+              <input v-validate="'required|min:8'" name="password" class="input" type="password" v-model="password">
             </div>
-            <p v-show="!lengthy" class="help is-danger">Length must be greater than seven</p>
+            <p v-show="errors.has('password:min')" class="help is-danger">Length must be greater than seven</p>
+            <p v-show="errors.has('password:required')" class="help is-danger">Password is required</p>
           </div>
           <div class="field">
             <label class="label">Password (confirm)</label>
             <div class="control">
-              <input class="input" type="password" v-model="passwordConfirm">
+              <input v-validate="'required|confirmed:password'" name="passwordConfirm" class="input" type="password" v-model="passwordConfirm">
             </div>
-            <p v-show="!matchy" class="help is-danger">Passwords must match</p>
+            <p v-show="errors.has('passwordConfirm:confirmed')" class="help is-danger">Passwords must match</p>
+            <p v-show="errors.has('passwordConfirm:required')" class="help is-danger">Confirmation password is required</p>
           </div>
           <div class="control">
             <button @click="submit" :disabled="goodtogo" class="button is-light">Submit</button>
+            <a @click="submit" :disabled="goodtogo" >Cancel</a>
           </div>
         </div>
       </div>
@@ -55,32 +62,14 @@ export default {
     }
   },
   computed: {
-    matchy() {
-      if(this.passwordTry != null && this.passwordTry != this.passwordConfirm){
-        return false
-      } else {
-        return true
-      }
-    },
-    lengthy() {
-      if(this.passwordTry !== null && this.passwordTry.length < 8) {
-        return false
-      } else {
-        return true
-      }
-    },
-    goodtogo() {
-      if(this.lengthy && this.matchy){
-        return false
-      } else {
-        return true
-      }
-    }
+    matchy() {},
+    lengthy() {},
+    goodtogo() {}
   },
   methods: {
     submit() {
       let pl = {
-        passwordTry: this.passwordTry,
+        password: this.passwordTry,
         passwordConfirm: this.passwordConfirm,
         email: this.email,
         firstName: this.firstName,
@@ -91,3 +80,10 @@ export default {
   }
 }
 </script>
+
+<<style>
+#signuptitle {
+  margin-bottom: 15px;
+}
+</style>
+
