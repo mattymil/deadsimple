@@ -10,7 +10,7 @@ import App from './App.vue'
 import store from './store/store'
 import home from './components/home.vue'
 import signup from './components/signUp.vue'
-// import login from './components/login.vue'
+import login from './components/login.vue'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -19,7 +19,8 @@ Vue.use(VeeValidate)
 const routes = [
   // {path: '/login', component: login},
   {path: '/', component: home},
-  {path: '/signup', component: signup}
+  {path: '/signup', component: signup},
+  {path: '/login', component: login}
 
   /* {
     path: '/workspace',

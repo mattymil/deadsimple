@@ -1,5 +1,17 @@
 <template>
+  <!-- Error message for duplicate email -->
   <div class="section">
+    <article class="message is-warning" :class="{'hide': !showEmailErrorMessage}">
+      <div class="message-header">
+        <p>Error</p>
+        <button class="delete" aria-label="delete" @click="closeEmailErrorMenu"></button>
+      </div>
+      <div class="message-body">
+        <p>The email address you have provided has already been associated with a Dead Simple Notes user account. Please choose another email or attempt to recover your password <router-link :to="{path: '/'}">here</router-link>.</p>
+      </div>
+    </article>
+    <!-- End Error Message -->
+    <!-- Sign Up Form -->
     <div class="container">
       <div class="columns">
         <div class="column is-half">
@@ -43,40 +55,67 @@
           </div>
           <div class="control">
             <button @click="submit" :disabled="goodtogo" class="button is-light">Submit</button>
-            <a @click="submit" :disabled="!goodtogo" >Cancel</a>
+            <a @click="submit" >Cancel</a>
           </div>
         </div>
       </div>
     </div>
+    <!-- End sign up form -->
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      passwordTry: null,
+      password: null,
       passwordConfirm: null,
       email: null, 
       firstName: null,
-      lastName: null
+      lastName: null,
+      showEmailErrorMessage: false
     }
   },
   methods: {
-    submit() {
-      let pl = {
-        password: this.passwordTry,
-        passwordConfirm: this.passwordConfirm,
-        email: this.email,
-        firstName: this.firstName,
-        lastName: this.lastName
-      }
-      this.$store.dispatch('signUser', pl)
+    closeEmailErrorMenu () {
+      this.showEmailErrorMessage = false
+    },
+    submit () {
+      this.$validator.validateAll().then((result) => {
+         
+         // will only proceed if result is true. Otherwise, at inocation helper messages
+         // will appear at field level for any validation errors.
+         if(result) {
+           let pl = {
+             password: this.password,
+             passwordConfirm: this.passwordConfirm,
+             email: this.email,
+             firstName: this.firstName,
+             lastName: this.lastName
+           }
+
+          this.$store.dispatch('signUpUser', pl).then(() => {
+            this.$router.push({path: 'login'})
+          }, (err) => {
+            
+            // If error indicates email already in use. 
+            //Accordingly, set error message flag to trigger UI message otherwise log the error
+            if(err === 'auth/email-already-in-use') {
+              this.showEmailErrorMessage = true
+            } else {
+              console.log(err)
+            }      
+          })
+        }
+      })
     }
   }
 }
 </script>
 
-<<style>
+<style>
+.hide {
+  display: none;
+}
 #signuptitle {
   margin-bottom: 15px;
 }
