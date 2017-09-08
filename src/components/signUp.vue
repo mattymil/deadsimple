@@ -53,10 +53,14 @@
             <p v-show="errors.has('passwordConfirm:confirmed')" class="help is-danger">Passwords must match</p>
             <p v-show="errors.has('passwordConfirm:required')" class="help is-danger">Confirmation password is required</p>
           </div>
-          <div class="control">
-            <button @click="submit" :disabled="goodtogo" class="button is-light">Submit</button>
-            <a @click="submit" >Cancel</a>
-          </div>
+          <div class="field is-grouped">
+            <div class="control">
+              <button @click="submit" class="button is-light">Submit</button>
+            </div>
+            <div id="cancelLink" class="control">
+              <router-link :to="{path: '/'}">Cancel</router-link>
+            </div>   
+          </div>    
         </div>
       </div>
     </div>
@@ -96,14 +100,9 @@ export default {
           this.$store.dispatch('signUpUser', pl).then(() => {
             this.$router.push({path: 'login'})
           }, (err) => {
-            
-            // If error indicates email already in use. 
-            //Accordingly, set error message flag to trigger UI message otherwise log the error
-            if(err === 'auth/email-already-in-use') {
-              this.showEmailErrorMessage = true
-            } else {
-              console.log(err)
-            }      
+            // If error this indicates email already in use. 
+            //Accordingly, set error message flag to trigger UI message
+              this.showEmailErrorMessage = true                  
           })
         }
       })
@@ -118,6 +117,9 @@ export default {
 }
 #signuptitle {
   margin-bottom: 15px;
+}
+#cancelLink {
+  margin-top: 5px; 
 }
 </style>
 
