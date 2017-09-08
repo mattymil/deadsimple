@@ -43,7 +43,7 @@
           </div>
           <div class="control">
             <button @click="submit" :disabled="goodtogo" class="button is-light">Submit</button>
-            <a @click="submit" :disabled="goodtogo" >Cancel</a>
+            <a @click="submit" :disabled="!goodtogo" >Cancel</a>
           </div>
         </div>
       </div>
@@ -60,11 +60,6 @@ export default {
       firstName: null,
       lastName: null
     }
-  },
-  computed: {
-    matchy() {},
-    lengthy() {},
-    goodtogo() {}
   },
   methods: {
     submit() {
