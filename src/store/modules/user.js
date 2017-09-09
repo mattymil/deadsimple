@@ -22,6 +22,18 @@ export default {
           reject(err.code)
         })
       })
+    },
+    login ({commit}, pl) {
+      return new Promise((resolve, reject) => {
+        firebase.auth().signInWithEmailAndPassword(pl.email, pl.password)
+        .then((user) => {
+          commit('saveUser', user)
+          resolve()
+        })
+        .catch((err) => {
+          reject(err.code)
+        })
+      })
     }
   },
   mutations: {
