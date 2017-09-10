@@ -11,9 +11,10 @@
     <div class="navbar-menu" :class="{'is-active': isactive}">
       <div class="navbar-end">
         <router-link  class="navbar-item" :to="{path: '/'}">Home</router-link>
-        <router-link  class="navbar-item" :to="{path: '/signup'}">Signup</router-link>
-        <router-link  class="navbar-item" :to="{path: '/login'}">Login</router-link>
-        <router-link  class="navbar-item" :to="{path: '/workspace'}">Workspace</router-link>
+        <router-link  v-show="!isLoggedIn" class="navbar-item" :to="{path: '/signup'}">Signup</router-link>
+        <router-link  v-show="!isLoggedIn" class="navbar-item" :to="{path: '/login'}">Login</router-link>
+        <router-link  v-show="isLoggedIn" class="navbar-item" :to="{path: '/workspace'}">Workspace</router-link>
+        <router-link  v-on:click.native="logout" v-show="isLoggedIn" class="navbar-item" :to="{path: '/login'}">Logout</router-link>
       </div>
     </div>
   </nav>
@@ -26,10 +27,18 @@ export default {
       isactive: false
     }
   },
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.user.currentUser
+    }
+  },
   methods: {
     // toggles the hamburger menu
     toggleMenu() {
       this.isactive = !this.isactive      
+    },
+    logout() {
+      this.$store.dispatch('logout')
     }
   }
 }

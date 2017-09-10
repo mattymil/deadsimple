@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 export default {
   state: {
-    user: null
+    currentUser: null
   },
   actions: {
     signUpUser ({commit}, pl) {
@@ -34,11 +34,19 @@ export default {
           reject(err.code)
         })
       })
+    },
+    logout ({commit}) {
+      firebase.auth().signOut().then(() => {
+        commit('removeCurrentUser')
+      })
     }
   },
   mutations: {
     saveUser (state, pl) {
-      state.user = pl
+      state.currentUser = pl
+    },
+    removeCurrentUser (state) {
+      state.currentUser = null
     }
   }
 }

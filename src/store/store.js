@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import firebase from 'firebase'
 import db from '../config/db.js'
 import user from './modules/user.js'
 import currentNote from './modules/current-note.js'
@@ -20,6 +21,13 @@ export default new Vuex.Store({
   },
   state: {},
   mutations: {},
-  actions: {}
+  actions: {
+    initializeStore ({commit}) {
+      return new Promise((resolve) => {
+        commit('saveUser', firebase.auth().currentUser)
+        resolve()
+      })
+    }
+  }
 })
 
