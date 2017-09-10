@@ -9,7 +9,7 @@
           <div class="field">
             <label class="label">Username (Email)</label>
             <div class="control">
-              <input v-validate="'required|email'" name="email" class="input" v-model="email" type="text">
+              <input v-validate="'required|email'" name="email" class="input" v-model="email" type="email">
             </div>
             <p v-show="errors.has('email:email')" class="help is-danger">Must be valid email</p>
             <p v-show="errors.has('email:required')" class="help is-danger">Username (Email) is Required</p>
@@ -17,7 +17,7 @@
           <div class="field">
             <label class="label">Password</label>
             <div class="control">
-              <input v-validate="'required'" name="password" class="input" v-model="password" type="password">
+              <input @keyup.enter="login" v-validate="'required'" name="password" class="input" v-model="password" type="password">
             </div>
             <p v-show="errors.has('password:required')" class="help is-danger">Password is Required</p>
           </div>

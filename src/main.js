@@ -26,7 +26,6 @@ const routes = [
     path: '/workspace',
     component: workspace,
     beforeEnter: (to, from, next) => {
-      console.log(store.state.user.currentUser)
       if (store.state.user.currentUser) {
         next()
       } else {
@@ -36,7 +35,7 @@ const routes = [
   }
 ]
 
-// Since the store is flushed on hard reset this function provides
+// Since the store is flushed on hard refresh this function provides
 // a delay while firebase initializes and obtains current auth state and
 // it is loaded into the store.
 firebase.auth().onAuthStateChanged(() => {
