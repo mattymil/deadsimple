@@ -10,7 +10,7 @@ import App from './App.vue'
 import store from './store/store'
 import home from './components/home.vue'
 import signup from './components/signUp.vue'
-import login from './components/login.vue'
+import login from './components/login/login.vue'
 import workspace from './components/workspace.vue'
 
 Vue.use(VueRouter)

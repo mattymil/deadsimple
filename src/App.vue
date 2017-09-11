@@ -16,7 +16,12 @@
 </script>
 
 <style lang="sass">
+  @import "./node_modules/font-awesome/css/font-awesome.min.css";
   @import "./node_modules/bulma/sass/utilities/initial-variables";
+  // Customize Bulma
+  $link: $grey;
+  $link-visited: $grey-dark;
+
   @import './node_modules/bulma/bulma';
 </style>
 

@@ -39,6 +39,17 @@ export default {
       firebase.auth().signOut().then(() => {
         commit('removeCurrentUser')
       })
+    },
+    initiatePasswordReset ({commit}, pl) {
+      return new Promise((resolve, reject) => {
+        firebase.auth().sendPasswordResetEmail(pl)
+        .then(() => {
+          resolve()
+        })
+        .catch((err) => {
+          reject(err.code)
+        })
+      })
     }
   },
   mutations: {

@@ -15,7 +15,7 @@
     <div class="container">
       <div class="columns">
         <div class="column is-half">
-          <h1 id="signuptitle" class="is-size-2">Sign up!</h1>
+          <h1 id="signuptitle" class="is-size-4">Sign up!</h1>
           <div class="field">
             <label class="label">First Name</label>
             <div class="control">

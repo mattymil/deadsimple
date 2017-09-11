@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="navbar-brand">
-      <router-link class="navbar-item" :to="{path: '/'}">Dead Simple</router-link>
+      <router-link class="navbar-item is-size-3" :to="{path: '/'}">Dead Simple</router-link>
       <div class="navbar-burger burger" @click="toggleMenu" :class="{'is-active': isactive}" >
         <span></span>
         <span></span>
