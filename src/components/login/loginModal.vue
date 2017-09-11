@@ -6,12 +6,12 @@
         <div class="modal-card">
           <header class="modal-card-head">
             <p class="modal-card-title">Password Reset</p>
-            <button @click="modalToggle" class="delete" aria-label="close"></button>
+            <button @click="closeMe" class="delete" aria-label="close"></button>
           </header>
           <section class="modal-card-body">
             <!-- Submit email message -->
             <div v-show="!emailSentFlag && !emailErrorFlag">
-              <p> Please enter the email associated with your Dead Simple Notes account and click submit. If it is correct, a password reset email will be sent to you shortly.</p>
+              <p> Please enter the email associated with your Dead Simple Notes account and click submit. An email containing instructions on how to reset your password will be sent shortly.</p>
               <div class="field" id="emailResetField">
                 <div class="control has-icons-left">
                   <input v-validate="'required|email'" name="emailReset" class="input" v-model="emailReset" type="email">
@@ -39,7 +39,7 @@
           <footer class="modal-card-foot">
             <div v-show="!emailSentFlag && !emailErrorFlag">
               <button @click="submitPwdReset" class="button">Submit</button>
-            <a @click="modalToggle">Cancel</a>
+            <a @click="closeMe">Cancel</a>
             </div> 
           </footer>
         </div>
@@ -60,14 +60,19 @@ export default {
   },
   methods: {
     submitPwdReset () {
-      this.$store.dispatch('initiatePasswordReset', this.emailReset)
-      .then(() => {
-        this.emailSentFlag = true
-      }).catch(() => {
-        this.emailErrorFlag = true
+      this.$validator.validateAll()
+      .then((result) => {
+        if(result) {
+          this.$store.dispatch('initiatePasswordReset', this.emailReset)
+          .then(() => {
+            this.emailSentFlag = true
+          }).catch(() => {
+            this.emailErrorFlag = true
+          })
+        }
       })
     },
-    modalToggle () {
+    closeMe () {
       this.$emit('closeMe')
     },
     tryEmailAgain () {
