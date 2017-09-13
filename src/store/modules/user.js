@@ -1,10 +1,11 @@
 import firebase from 'firebase'
 export default {
   state: {
-    currentUser: null
+    currentUser: null,
+    lockout: false
   },
   actions: {
-    signUpUser ({commit}, pl) {
+    signUpUser ({commit, dispatch}, pl) {
       return new Promise((resolve, reject) => {
         firebase.auth().createUserWithEmailAndPassword(pl.email, pl.password)
         .then((user) => {
@@ -13,6 +14,7 @@ export default {
           })
             .then(() => {
               commit('saveUser', firebase.auth().currentUser)
+              dispatch('sendConfEmail')
               resolve()
             }, (err) => {
               console.log('Update to user profile failed with firebase: ' + err)
@@ -23,11 +25,19 @@ export default {
         })
       })
     },
-    login ({commit}, pl) {
+    login ({commit, state}, pl) {
       return new Promise((resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(pl.email, pl.password)
         .then((user) => {
           commit('saveUser', user)
+
+          // unlock the user and allow components to lockout as needed on mounting
+          commit('unlock')
+
+          // Only save the verification email address if user is not verified
+          if (!state.currentUser.emailVerified) {
+            commit('saveVerifyEmail')
+          }
           resolve()
         })
         .catch((err) => {
@@ -40,6 +50,12 @@ export default {
         commit('removeCurrentUser')
       })
     },
+    userLock ({commit}) {
+      commit('lockout')
+    },
+    userUnlock ({commit}) {
+      commit('unlock')
+    },
     initiatePasswordReset ({commit}, pl) {
       return new Promise((resolve, reject) => {
         firebase.auth().sendPasswordResetEmail(pl)
@@ -50,14 +66,34 @@ export default {
           reject(err.code)
         })
       })
+    },
+    sendConfEmail ({state}) {
+      return new Promise((resolve, reject) => {
+        state.currentUser.sendEmailVerification().then(() => {
+          resolve()
+        })
+        .catch((err) => {
+          console.log('Error sending conf email' + err.code)
+          reject()
+        })
+      })
     }
   },
   mutations: {
     saveUser (state, pl) {
       state.currentUser = pl
     },
+    saveVerifyEmail (state) {
+      state.confEmail = state.currentUser.email
+    },
     removeCurrentUser (state) {
       state.currentUser = null
+    },
+    lockout (state) {
+      state.lockout = true
+    },
+    unlock (state) {
+      state.lockout = false
     }
   }
 }

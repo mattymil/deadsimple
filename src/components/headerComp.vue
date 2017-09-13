@@ -29,7 +29,14 @@ export default {
   },
   computed: {
     isLoggedIn () {
-      return this.$store.state.user.currentUser
+      
+      let user = this.$store.state.user.currentUser
+      let lockout = this.$store.state.user.lockout
+      // if user is locked out, hide the appropriate links
+      if(lockout || !user) {
+        return false
+      } 
+      return true 
     }
   },
   methods: {

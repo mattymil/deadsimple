@@ -98,7 +98,7 @@ export default {
            }
 
           this.$store.dispatch('signUpUser', pl).then(() => {
-            this.$router.push({path: 'login'})
+            this.$router.push({path: '/emailconf'})
           }, (err) => {
             // If error this indicates email already in use. 
             //Accordingly, set error message flag to trigger UI message

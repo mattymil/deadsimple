@@ -12,22 +12,40 @@ import home from './components/home.vue'
 import signup from './components/signUp.vue'
 import login from './components/login/login.vue'
 import workspace from './components/workspace.vue'
+import emailConf from './components/emailConf/emailConf.vue'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(VeeValidate)
 
 const routes = [
-  // {path: '/login', component: login},
   {path: '/', component: home},
   {path: '/signup', component: signup},
   {path: '/login', component: login},
   {
-    path: '/workspace',
-    component: workspace,
+    path: '/emailconf',
+    component: emailConf,
+    // To prevent users from finding a broken email conf page
+    // via page refresh check to see if the confEmail property exists.
     beforeEnter: (to, from, next) => {
       if (store.state.user.currentUser) {
         next()
+      } else {
+        next({path: '/login'})
+      }
+    }
+  },
+  {
+    path: '/workspace',
+    component: workspace,
+    beforeEnter: (to, from, next) => {
+      // This if block will prevent user from accessing workspace if not logged in 
+      // or if email is not verified. In the case of unverified email, the user will be
+      // referred to the emailconf page
+      if (store.state.user.currentUser.emailVerified) {
+        next()
+      } else if (!store.state.user.currentUser.emailVerified) {
+        next({path: '/emailconf'})
       } else {
         next({path: '/login'})
       }
