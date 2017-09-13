@@ -26,7 +26,7 @@
             <!-- End Submit Email Message -->
             <!-- Email submit Confirmation Message -->
             <div v-show="emailSentFlag">
-              <p>Thank you for your submission, your email has been sent. To login check your email and follow the instructions to reset your password, then click <a @click="closeMe">here</a> to login. If you didn't receive the email, click <a @click="tryEmailAgain">here</a> to resend.</a></p>
+              <p>Thank you for your submission, your email has been sent. Please check your email and follow the instructions to reset your password, then click <a @click="closeMe">here</a> to login. If you didn't receive the email, click <a @click="tryEmailAgain">here</a> to resend.</a></p>
             </div>
             <!-- End Email submit Confirmation Message -->
             <!-- Email Error Message -->
@@ -37,9 +37,6 @@
             <!-- End Email Error Message -->
           </section>
           <footer class="modal-card-foot">
-            <div class="field is-grouped">
-
-            </div>
             <div class="field is-grouped" v-show="!emailSentFlag && !emailErrorFlag">
               <div class="control">
                 <button @click="submitPwdReset" class="button">Submit</button>
