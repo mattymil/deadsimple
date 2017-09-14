@@ -13,6 +13,7 @@ import signup from './components/signUp.vue'
 import login from './components/login/login.vue'
 import workspace from './components/workspace.vue'
 import emailConf from './components/emailConf.vue'
+import fourOfour from './components/fourOfour.vue'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -50,7 +51,8 @@ const routes = [
         next({path: '/login'})
       }
     }
-  }
+  },
+  {path: '*', component: fourOfour}
 ]
 
 // Since the store is flushed on hard refresh this function provides
