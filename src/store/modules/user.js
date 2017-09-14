@@ -1,11 +1,14 @@
 import firebase from 'firebase'
+
 export default {
   state: {
     currentUser: null,
     lockout: false
   },
   actions: {
+
     signUpUser ({commit, dispatch}, pl) {
+
       return new Promise((resolve, reject) => {
         firebase.auth().createUserWithEmailAndPassword(pl.email, pl.password)
         .then((user) => {
@@ -25,7 +28,9 @@ export default {
         })
       })
     },
+
     login ({commit, state}, pl) {
+
       return new Promise((resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(pl.email, pl.password)
         .then((user) => {
@@ -33,11 +38,6 @@ export default {
 
           // unlock the user and allow components to lockout as needed on mounting
           commit('unlock')
-
-          // Only save the verification email address if user is not verified
-          if (!state.currentUser.emailVerified) {
-            commit('saveVerifyEmail')
-          }
           resolve()
         })
         .catch((err) => {
@@ -45,17 +45,21 @@ export default {
         })
       })
     },
+
     logout ({commit}) {
       firebase.auth().signOut().then(() => {
         commit('removeCurrentUser')
       })
     },
+
     userLock ({commit}) {
       commit('lockout')
     },
+
     userUnlock ({commit}) {
       commit('unlock')
     },
+
     initiatePasswordReset ({commit}, pl) {
       return new Promise((resolve, reject) => {
         firebase.auth().sendPasswordResetEmail(pl)
@@ -67,6 +71,7 @@ export default {
         })
       })
     },
+
     sendConfEmail ({state}) {
       return new Promise((resolve, reject) => {
         state.currentUser.sendEmailVerification().then(() => {
@@ -79,19 +84,25 @@ export default {
       })
     }
   },
+
   mutations: {
+
     saveUser (state, pl) {
       state.currentUser = pl
     },
+
     saveVerifyEmail (state) {
       state.confEmail = state.currentUser.email
     },
+
     removeCurrentUser (state) {
       state.currentUser = null
     },
+
     lockout (state) {
       state.lockout = true
     },
+
     unlock (state) {
       state.lockout = false
     }

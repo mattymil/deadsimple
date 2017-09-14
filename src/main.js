@@ -39,7 +39,7 @@ const routes = [
     path: '/workspace',
     component: workspace,
     beforeEnter: (to, from, next) => {
-      // This if block will prevent user from accessing workspace if not logged in 
+      // This if block will prevent user from accessing workspace if not logged in
       // or if email is not verified. In the case of unverified email, the user will be
       // referred to the emailconf page
       if (store.state.user.currentUser.emailVerified) {
@@ -57,7 +57,7 @@ const routes = [
 // a delay while firebase initializes and obtains current auth state and
 // it is loaded into the store.
 firebase.auth().onAuthStateChanged(() => {
-  store.dispatch('initializeStore').then(() => {     
+  store.dispatch('initializeStore').then(() => {
     const router = new VueRouter({
       routes
     })

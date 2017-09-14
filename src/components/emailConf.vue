@@ -20,6 +20,8 @@ import messageModal from './messageModal.vue'
 
 export default {
 	mounted () {
+			// If the user has arrived here, we need to lock them out since 
+			// we still hold the user object from authenitication
 			this.$store.dispatch('userLock')
 	},
 	components: {
@@ -30,6 +32,8 @@ export default {
 			email: this.$store.state.user.currentUser.email,
 			sentMessage: false,
 			sendErrorMessage: false,
+			// this could be done better. The anchor should be a router link, however
+			// vue has trouble parsing components dumped from  a v-html directive
 			successMessage: '<p>Your email has been sent. Check your inbox and follow the instructions to enable your Dead Simple Notes account. When complete, login <a href="/#/login">here.</a></p>',
 			errorMessage: 	'<p>An error has occurred and your email has not been sent. Please contact <a href="mailto:support@digitalvecte.com">our support team</a> for resolution.</p>'	
 		}

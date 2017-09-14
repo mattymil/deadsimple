@@ -10,6 +10,7 @@
     </div>
     <div class="navbar-menu" :class="{'is-active': isactive}">
       <div class="navbar-end">
+        <!-- In these router links, show or hide them based on the user context -->
         <router-link  v-on:click.native="toggleMenu" class="navbar-item" :to="{path: '/'}">Home</router-link>
         <router-link  v-on:click.native="toggleMenu" v-show="!isLoggedIn" class="navbar-item" :to="{path: '/signup'}">Signup</router-link>
         <router-link  v-on:click.native="toggleMenu" v-show="!isLoggedIn" class="navbar-item" :to="{path: '/login'}">Login</router-link>
@@ -32,7 +33,7 @@ export default {
       
       let user = this.$store.state.user.currentUser
       let lockout = this.$store.state.user.lockout
-      // if user is locked out, hide the appropriate links
+      // if user is locked out, ths should be treated as being logged out
       if(lockout || !user) {
         return false
       } 

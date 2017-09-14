@@ -86,7 +86,7 @@ export default {
     submit () {
       this.$validator.validateAll().then((result) => {
          
-         // will only proceed if result is true. Otherwise, at inocation helper messages
+         // will only proceed if result is true. Otherwise, at inovcation helper messages
          // will appear at field level for any validation errors.
          if(result) {
            let pl = {

@@ -22,7 +22,9 @@ export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {
+
     initializeStore ({commit}) {
+
       return new Promise((resolve) => {
         commit('saveUser', firebase.auth().currentUser)
         resolve()
