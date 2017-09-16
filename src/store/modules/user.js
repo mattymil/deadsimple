@@ -82,6 +82,14 @@ export default {
           reject()
         })
       })
+    },
+
+    updateSettings ({state, commit}, pl) {
+      if (state.email !== pl.email) {
+        state.currentUser.updateEmail(pl.email)
+      }
+      state.currentUser.updateProfile({displayName: pl.displayName})
+      commit('saveUser', firebase.auth().currentUser)
     }
   },
 
@@ -89,10 +97,6 @@ export default {
 
     saveUser (state, pl) {
       state.currentUser = pl
-    },
-
-    saveVerifyEmail (state) {
-      state.confEmail = state.currentUser.email
     },
 
     removeCurrentUser (state) {

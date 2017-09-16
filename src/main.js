@@ -14,6 +14,7 @@ import login from './components/login/login.vue'
 import workspace from './components/workspace.vue'
 import emailConf from './components/emailConf.vue'
 import fourOfour from './components/fourOfour.vue'
+import settings from './components/settings.vue'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -43,10 +44,30 @@ const routes = [
       // This if block will prevent user from accessing workspace if not logged in
       // or if email is not verified. In the case of unverified email, the user will be
       // referred to the emailconf page
-      if (store.state.user.currentUser.emailVerified) {
-        next()
-      } else if (!store.state.user.currentUser.emailVerified) {
-        next({path: '/emailconf'})
+      if (store.state.user.currentUser) {
+        if (store.state.user.currentUser.emailVerified) {
+          next()
+        } else if (!store.state.user.currentUser.emailVerified) {
+          next({path: '/emailconf'})
+        }
+      } else {
+        next({path: '/login'})
+      }
+    }
+  },
+  {
+    path: '/settings',
+    component: settings,
+    beforeEnter: (to, from, next) => {
+      // This if block will prevent user from accessing settings if not logged in
+      // or if email is not verified. In the case of unverified email, the user will be
+      // referred to the emailconf page
+      if (store.state.user.currentUser) {
+        if (store.state.user.currentUser.emailVerified) {
+          next()
+        } else if (!store.state.user.currentUser.emailVerified) {
+          next({path: '/emailconf'})
+        }
       } else {
         next({path: '/login'})
       }
@@ -57,7 +78,8 @@ const routes = [
 
 // Since the store is flushed on hard refresh this function provides
 // a delay while firebase initializes and obtains current auth state and
-// it is loaded into the store.
+// it is loaded into the store. In other words, when the auth state
+// changes, initialize the api
 firebase.auth().onAuthStateChanged(() => {
   store.dispatch('initializeStore').then(() => {
     const router = new VueRouter({
@@ -72,3 +94,6 @@ firebase.auth().onAuthStateChanged(() => {
     })
   })
 })
+
+
+

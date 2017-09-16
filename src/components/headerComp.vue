@@ -15,6 +15,7 @@
         <router-link  v-on:click.native="toggleMenu" v-show="!isLoggedIn" class="navbar-item" :to="{path: '/signup'}">Signup</router-link>
         <router-link  v-on:click.native="toggleMenu" v-show="!isLoggedIn" class="navbar-item" :to="{path: '/login'}">Login</router-link>
         <router-link  v-on:click.native="toggleMenu" v-show="isLoggedIn" class="navbar-item" :to="{path: '/workspace'}">Workspace</router-link>
+        <router-link  v-on:click.native="toggleMenu" v-show="isLoggedIn" class="navbar-item" :to="{path: '/Settings'}">Settings</router-link>
         <router-link  v-on:click.native="logout" v-show="isLoggedIn" class="navbar-item" :to="{path: '/login'}">Logout</router-link>
       </div>
     </div>
