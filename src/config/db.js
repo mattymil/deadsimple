@@ -5,10 +5,13 @@ const config = {
   authDomain: 'deadsimplenotes.firebaseapp.com',
   databaseURL: 'https://deadsimplenotes.firebaseio.com',
   projectId: 'deadsimplenotes',
-  storageBucket: '',
+  storageBucket: 'gs://deadsimplenotes.appspot.com',
   messagingSenderId: '1006518236550'
 }
 
 firebase.initializeApp(config)
-let db = firebase.database()
-export default db
+module.exports = {
+  db: firebase.database(),
+  storage: firebase.storage()
+}
+

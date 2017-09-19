@@ -3,7 +3,7 @@
     <div @click="closeMe" class="modal-background"></div>
       <div class="modal-card is-success">
         <header class="modal-card-head">
-          <p class="modal-card-title">Success!</p>
+          <p class="modal-card-title">{{header}}</p>
           <button @click="closeMe" class="delete" aria-label="close"></button>
         </header>
       <section class="modal-card-body">
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  props: ['message'],
+  props: ['message', 'header'],
   methods: {
     closeMe () {
       this.$emit('closeMe')

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<message-modal v-show="sentMessage" :message="successMessage" v-on:closeMe="closeSuccess"></message-modal>
+		<message-modal v-show="sentMessage" :header="'Success!'" :message="successMessage" v-on:closeMe="closeSuccess"></message-modal>
 		<message-modal v-show="sendErrorMessage" :message="errorMessage" v-on:closeMe="closeFail"></message-modal>
 		<div class="section">
 			<div class="container">
